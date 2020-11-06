@@ -1,11 +1,23 @@
-<p>person-list works!</p>
+<div class="col-md-12 text-center">
+  <h4 style="color: #2d2d2d; font-weight: 600;">Type of Create and Edit Forms</h4>
+  <mat-radio-group aria-label="Select an option" (change)="radioChange($event)">
+    <mat-radio-button [checked]="true" value="1">Use Routing </mat-radio-button>
+    <mat-radio-button value="2">Use Popups </mat-radio-button>
+  </mat-radio-group>
+</div>
+
 <div class="col-lg-6 col-xs-3">
-    <div> <a routerLink="/person/create" class="btn btn-secondary btn-round btn-lg" data-toggle="modal" data-target="#create-form2"><span class="hidden-xs">Create New With Routing </span><i class="fa fa-plus"></i></a> </div>
-    <div> 
-      <button mat-button (click)="addEvent($event)" class="btn btn-secondary btn-round btn-lg">
+    <div *ngIf="!isPopup"> 
+      <a routerLink="/person/create" class="btn btn-secondary btn-round btn-lg">
+        <span class="hidden-xs">Create New With Routing </span>
+        <i class="fa fa-plus"></i>
+      </a>
+    </div>
+    <div *ngIf="isPopup"> 
+      <a (click)="addEvent($event)" class="btn btn-secondary btn-round btn-lg" style="color: white;">
         <span class="hidden-xs">Create New With PopUp</span>
         <i class="fa fa-plus"></i>
-      </button> 
+      </a> 
     </div>
 
 </div>
@@ -29,7 +41,10 @@
       <td style="padding-top: 9px;">
         <img class="imgs-circle"  src="assets/Content/Adminicon.jpg" />
       </td>
-      <td><button (click)="addEvent(employee)">{{ employee.employeeNameAr }}</button></td>
+      <td> 
+        <a *ngIf="isPopup" style="cursor: pointer; color: #1875f0;" (click)="addEvent(employee)">{{ employee.employeeNameAr }}</a>
+        <a *ngIf="!isPopup" routerLink="/person/edit/{{employee.id}}">{{ employee.employeeNameAr }}</a>
+      </td>
       <!-- <td><mat-checkbox [checked]="employee.isManager" disabled color="primary"></mat-checkbox></td> -->
       <td>{{ employee.isManager }}</td>
       <td>{{ employee.joinDate }}</td>

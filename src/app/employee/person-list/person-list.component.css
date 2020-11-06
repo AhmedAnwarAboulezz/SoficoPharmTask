@@ -28,3 +28,15 @@ table {
     background-color: #006fc2 !important;
     color: white;
   }
+
+  ::ng-deep .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  ::ng-deep .mat-radio-label-content {
+    /* padding-left: 10px;
+    padding-right: 30px; */
+    font-weight: 800;
+    font-size: 17px;
+    color: #006fc2;
+}

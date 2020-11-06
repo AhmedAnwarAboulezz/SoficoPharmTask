@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatRadioChange } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import Employee from 'src/app/models/Employee';
 import { Shell } from 'src/app/shell';
@@ -27,6 +27,8 @@ export class PersonListComponent {
      {id:11,employeeNameAr:"AHMED11",employeeNameEn:"Ahmed2",isManager:true,joinDate: Date.now()}
   ];
   isLoading: boolean = false;
+  isPopup: boolean = false;
+
   get MatDialog(): MatDialog { return Shell.Injector.get(MatDialog); }
 
   constructor(
@@ -36,20 +38,26 @@ export class PersonListComponent {
   ) {}
 
   ngOnInit() {
-    //const refrence = this.employee_service.getPersons();
-    this.employee_service.getPersons().subscribe((response: any) => {
-      console.log("All persons = ", response);
-      
-      // this.employees = response;
-      // this.isLoading = false;
-      // console.log("emplyees", this.employees);
-    });
-    console.log("emplyees", this.employees);
+    this.getAllPersons();
   }
 
-  addEvent(model: any) {
-    debugger;
-    this.add(PersonProfileComponent, model);
+  getAllPersons()
+  {
+    this.isLoading = true;
+    this.employee_service.getPersons().subscribe((response: any) => {
+      console.log("All persons = ", response);      
+      // this.persons = response;
+       this.isLoading = false;
+    });
+  }
+  addEvent(model: any)
+  {
+    this.add(PersonProfileComponent, null);
+  }
+
+  radioChange(event: MatRadioChange) 
+  {
+       this.isPopup =  event.value == 2 ? true : false;
   }
 
 
@@ -76,6 +84,12 @@ export class PersonListComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      if (result == null || result == undefined || result.data == false) 
+      {  return;  }
+
+
+      this.getAllPersons();
       console.log(`Dialog result: ${result}`);
     });
   }
