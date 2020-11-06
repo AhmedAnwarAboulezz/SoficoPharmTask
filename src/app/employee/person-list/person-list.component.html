@@ -1,61 +1,61 @@
-<div class="col-md-12 text-center">
-  <h4 style="color: #2d2d2d; font-weight: 600;">Type of Create and Edit Forms</h4>
-  <mat-radio-group aria-label="Select an option" (change)="radioChange($event)">
-    <mat-radio-button [checked]="true" value="1">Use Routing </mat-radio-button>
-    <mat-radio-button value="2">Use Popups </mat-radio-button>
-  </mat-radio-group>
-</div>
-
-<div class="col-lg-6 col-xs-3">
-    <div *ngIf="!isPopup"> 
-      <a routerLink="/person/create" class="btn btn-secondary btn-round btn-lg">
-        <span class="hidden-xs">Create New With Routing </span>
-        <i class="fa fa-plus"></i>
-      </a>
-    </div>
-    <div *ngIf="isPopup"> 
-      <a (click)="addEvent($event)" class="btn btn-secondary btn-round btn-lg" style="color: white;">
-        <span class="hidden-xs">Create New With PopUp</span>
-        <i class="fa fa-plus"></i>
-      </a> 
-    </div>
-
-</div>
-
-
-<table datatable  class="table row-border hover  table-bordered" role="grid"  *ngIf="!isLoading">
-<thead>
-    <tr>
-        <!-- <th>ID</th> -->
-        <th>Avatar</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Age</th>
-        <!-- <th>Actions</th> -->
-    
-      </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let employee of employees">
-      <!-- <td>{{ employee.id }}</td> -->
-      <td style="padding-top: 9px;">
-        <img class="imgs-circle"  src="assets/Content/Adminicon.jpg" />
-      </td>
-      <td> 
-        <a *ngIf="isPopup" style="cursor: pointer; color: #1875f0;" (click)="addEvent(employee)">{{ employee.employeeNameAr }}</a>
-        <a *ngIf="!isPopup" routerLink="/person/edit/{{employee.id}}">{{ employee.employeeNameAr }}</a>
-      </td>
-      <!-- <td><mat-checkbox [checked]="employee.isManager" disabled color="primary"></mat-checkbox></td> -->
-      <td>{{ employee.isManager }}</td>
-      <td>{{ employee.joinDate }}</td>
-      <!-- <td> 
-          <a class="btn btn-xs btn-primary" routerLink="/employees/{{ employee.id }}/tasks"><i class="fa fa-list"></i> View Tasks </a> &nbsp;
-        <a class="btn btn-xs btn-default" routerLink="/employees/edit/{{ employee.id }}"><i class="fa fa-edit"></i> Edit </a> &nbsp;
-        <a class="btn btn-xs btn-danger" (click)="handleDelete(employee.id)"><i class="fa fa-trash"></i> Delete </a>
-      </td> -->
-    </tr>
+<div *ngIf="!isLoading">
+  <div class="col-md-12 text-center">
+    <h4 style="color: #bbc9dc; font-weight: 600;">Type of Create and Edit Forms</h4>
+    <mat-radio-group aria-label="Select an option" (change)="radioChange($event)">
+      <mat-radio-button [checked]="true" value="1">Use Routing </mat-radio-button>
+      <mat-radio-button value="2">Use Popups </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <hr>
   
-</tbody>
-</table>
+  <div class="col-lg-6 col-xs-3">
+      <div *ngIf="!isPopup"> 
+        <a routerLink="/person/create" class="btn btn-secondary btn-round btn-lg">
+          <span class="hidden-xs">Create New </span>
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <div *ngIf="isPopup"> 
+        <a (click)="addEvent()" class="btn btn-secondary btn-round btn-lg" style="color: white;">
+          <span class="hidden-xs">Create New </span>
+          <i class="fa fa-plus"></i>
+        </a> 
+      </div>
+  
+  </div>
+  
+  
+  <table datatable  class="table row-border hover  table-bordered" role="grid"  *ngIf="!isLoading">
+  <thead>
+      <tr>
+          <th>ID</th>
+          <th>Avatar</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Age</th>
+          <th>Country</th>    
+        </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of persons">
+        <td>{{ person.id }}</td>
+        <td style="padding-top: 9px;">
+          <img class="imgs-circle" mat-card-image [src]="person.avatar"  />
+        </td>
+        <td> 
+          <a *ngIf="isPopup" style="cursor: pointer; color: #1875f0;" (click)="addEvent(person)"> {{ person.name }}</a>
+          <a *ngIf="!isPopup" routerLink="/person/edit/{{person.id}}"> {{ person.name }}</a>
+        </td>
+        <td>{{ person.email }}</td>
+        <td>{{ person.dob | age }}</td>
+        <td>{{ person.country }}</td>
+      </tr>    
+  </tbody>
+  </table>  
+</div>
 
-<h1 *ngIf="isLoading">Loading...</h1>
+
+
+<div *ngIf="isLoading" class="loading">
+  <mat-spinner></mat-spinner>
+</div>

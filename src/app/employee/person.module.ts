@@ -10,12 +10,14 @@ import { PersonListComponent } from './person-list/person-list.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
 import { PersonProfileWithRoutingComponent } from './person-profile-with-routing/person-profile-with-routing.component';
 import { PersonService } from './person.service';
+import { AgePipe } from '../filter.pipe';
 
 @NgModule({
   declarations: [
     PersonListComponent,
     PersonProfileComponent,
     PersonProfileWithRoutingComponent,
+    AgePipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,7 @@ import { PersonService } from './person.service';
     MaterialModule
 
   ],
-  exports: [],
+  exports: [AgePipe],
   entryComponents:[ PersonProfileComponent ],
   providers: [PersonService]
 })

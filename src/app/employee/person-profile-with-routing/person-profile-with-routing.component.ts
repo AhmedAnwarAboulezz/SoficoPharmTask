@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import Person from 'src/app/models/Person';
 import { PersonService } from '../person.service';
-import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -24,30 +23,26 @@ export class PersonProfileWithRoutingComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
 
-    debugger;
-
   }
 
   ngOnInit() {
     this.personId = this.route.snapshot.params.id;
-    //this.personId && this.getPersonData(this.personId);
+    this.personId && this.getPersonData(this.personId);
 
   }
-  // getPersonData(id: number) {
-  //   this.personService.getPersonsById(id).subscribe((response:any) => {
-  //     this.person = response;
-  //     this.person.dob = moment(this.person.dob).format("DD/MM/YYYY");
-  //     console.log(this.person);
-  //   });
-  // }
-
+  getPersonData(id: number) {
+    this.personService.getPersonsById(id).subscribe((response:any) => {
+      this.person = response;
+    });
+  }
 
   handleSubmit() {
+    if(this.person.name == ""  || this.person.dob == null
+    || this.person.email == "" || this.person.avatar == ""){
+      this.toastr.error('Please Fill Required Data First');
+      return;
+    }
     this.isDisabled = true;
-    // if(this.person.departmentId == 0 || this.person.departmentId == null){
-    //   this.toastr.error('Please Select Department First');
-    //   return;
-    // }
     this.personId ? this.handleEdit() : this.handleCreate();
   }
 
@@ -65,10 +60,10 @@ export class PersonProfileWithRoutingComponent implements OnInit {
 
   handleEdit() {
     this.personService.updatePerson(this.person).subscribe(response => {
-      console.log(response);
+      this.toastr.success("Person Profile Updated Successfully");
       this.router.navigate(['/persons/']);
      }, error =>{
-      this.toastr.error('An Error happened during create');
+      this.toastr.error('An Error happened during Update');
     });
   }
 }

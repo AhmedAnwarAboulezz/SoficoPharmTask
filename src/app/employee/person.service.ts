@@ -15,15 +15,15 @@ export class PersonService {
   }
 
   createPerson(person: Person) {
-    debugger;
     return this.http.post(this.baseURL, person);
   }
 
   updatePerson(person: Person) {
+    debugger;
     return this.http.put(`${this.baseURL}/${person.id}`, person);
   }
   getPersonsById(id: number) {
-    return this.http.get(`${this.baseURL}/Get/${id}`);
+    return this.http.get(`${this.baseURL}/${id}`);
   }
   deletePerson(id: number) {
     return this.http.delete(`${this.baseURL}/delete/${id}`);

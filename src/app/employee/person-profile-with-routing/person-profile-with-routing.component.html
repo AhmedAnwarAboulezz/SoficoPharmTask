@@ -13,7 +13,7 @@
           </div>
   
           <div class="row">
-              <label for="" class="control-label col-md-2">Email: </label>
+              <label for="" class="control-label col-md-2">Email*: </label>
               <div class="col-md-10">
                   <input  class="form-control" type="text" name="email" [(ngModel)]="person.email" />
               </div>
@@ -27,27 +27,25 @@
               </div>
 
               <div class="row">
-                <label for="" class="control-label col-md-2">Avatar Link: </label>
+                <label for="" class="control-label col-md-2">Avatar Link*: </label>
                 <div class="col-md-10">
                     <input  class="form-control" type="text" name="avatar" [(ngModel)]="person.avatar" />
                 </div>
               </div>
             
               <div class="row">
-                <label for="" class="control-label col-md-2">Date Of Birth: </label>
+                <label for="" class="control-label col-md-2">Date Of Birth*: </label>
                 <div class="col-md-10">
-                    <input class="form-control" type="date" name="dob" [(ngModel)]="person.dob" />
+                    <input  class="input-date-picker" matInput [matDatepicker]="dobPicker" name="dob" [(ngModel)]="person.dob">
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker [calendarHeaderComponent]="header"></mat-datepicker>
                 </div>
               </div>
-            
-        <div class="row">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-default" [disabled]="isDisable">Save</button>
+            <hr />
+        <div class="row" align="end">
+            <div class="col-md-7" >
+                    <button type="submit" data-display="static" class="btn btn-default" mat-raised-button color="primary" [disabled]="isDisable" cdkFocusInitial>Save</button>  
             </div>
         </div>
-    </div>
-  
-  
-  
-  
+    </div>  
   </form>

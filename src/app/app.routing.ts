@@ -8,9 +8,6 @@ const appRoutes: Routes = [
     { path: 'persons', component: PersonListComponent },
     { path: 'person/create', component: PersonProfileWithRoutingComponent },
     { path: 'person/edit/:id', component: PersonProfileWithRoutingComponent }
-
-    // { path: 'employees/:empId/tasks', component: EmployeetaskListComponent },
-
  ];
 
  export const appRouting = RouterModule.forRoot(appRoutes);
