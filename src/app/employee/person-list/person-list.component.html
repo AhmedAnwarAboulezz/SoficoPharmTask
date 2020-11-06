@@ -1,0 +1,46 @@
+<p>person-list works!</p>
+<div class="col-lg-6 col-xs-3">
+    <div> <a routerLink="/person/create" class="btn btn-secondary btn-round btn-lg" data-toggle="modal" data-target="#create-form2"><span class="hidden-xs">Create New With Routing </span><i class="fa fa-plus"></i></a> </div>
+    <div> 
+      <button mat-button (click)="addEvent($event)" class="btn btn-secondary btn-round btn-lg">
+        <span class="hidden-xs">Create New With PopUp</span>
+        <i class="fa fa-plus"></i>
+      </button> 
+    </div>
+
+</div>
+
+
+<table datatable  class="table row-border hover  table-bordered" role="grid"  *ngIf="!isLoading">
+<thead>
+    <tr>
+        <!-- <th>ID</th> -->
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <!-- <th>Actions</th> -->
+    
+      </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let employee of employees">
+      <!-- <td>{{ employee.id }}</td> -->
+      <td style="padding-top: 9px;">
+        <img class="imgs-circle"  src="assets/Content/Adminicon.jpg" />
+      </td>
+      <td><button (click)="addEvent(employee)">{{ employee.employeeNameAr }}</button></td>
+      <!-- <td><mat-checkbox [checked]="employee.isManager" disabled color="primary"></mat-checkbox></td> -->
+      <td>{{ employee.isManager }}</td>
+      <td>{{ employee.joinDate }}</td>
+      <!-- <td> 
+          <a class="btn btn-xs btn-primary" routerLink="/employees/{{ employee.id }}/tasks"><i class="fa fa-list"></i> View Tasks </a> &nbsp;
+        <a class="btn btn-xs btn-default" routerLink="/employees/edit/{{ employee.id }}"><i class="fa fa-edit"></i> Edit </a> &nbsp;
+        <a class="btn btn-xs btn-danger" (click)="handleDelete(employee.id)"><i class="fa fa-trash"></i> Delete </a>
+      </td> -->
+    </tr>
+  
+</tbody>
+</table>
+
+<h1 *ngIf="isLoading">Loading...</h1>
